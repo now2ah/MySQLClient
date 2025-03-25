@@ -20,17 +20,28 @@ namespace MySQLClient
             //    Console.WriteLine(col.ColumnName);
             //}
 
-            command.Connection = connection;
-            command.CommandText = "SELECT * FROM users WHERE user_id = @user_id and user_password = @user_password";
-            command.Prepare();
-            command.Parameters.AddWithValue("@user_id", "testID");
-            command.Parameters.AddWithValue("@user_password", "test");
 
-            MySqlDataReader dataReader = command.ExecuteReader();
-            while(dataReader.Read())
-            {
-                Console.WriteLine(dataReader["name"]);
-            }
+            command.Connection = connection;
+
+            //command.CommandText = "SELECT * FROM users WHERE user_id = @user_id and user_password = @user_password";
+            //command.Prepare();
+            //command.Parameters.AddWithValue("@user_id", "testID");
+            //command.Parameters.AddWithValue("@user_password", "test");
+
+            //MySqlDataReader dataReader = command.ExecuteReader();
+            //while(dataReader.Read())
+            //{
+            //    Console.WriteLine(dataReader["name"]);
+            //}
+            
+
+            command.CommandText = "INSERT INTO users (user_id, user_password, name) VALUES (@user_id, @user_password, @name)";
+            command.Prepare();
+            command.Parameters.AddWithValue("@user_id", "newID");
+            command.Parameters.AddWithValue("@user_password", "newPW");
+            command.Parameters.AddWithValue("@name", "Cookie");
+            command.ExecuteNonQuery();
+
 
             connection.Close();
         }
